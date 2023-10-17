@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
@@ -68,7 +69,7 @@ app.delete("/api/notes/:id",async (req, res) => {
     }
 })
 
-app.listen(5000, ()=>{
-    console.log("Server running on localhost:5000")
+app.listen(PORT, ()=>{
+    console.log(`Server running on port ${PORT}`)
 });
 
