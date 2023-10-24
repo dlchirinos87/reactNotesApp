@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 
+const API_URL = "https://notesappapi-tbrz.onrender.com/"
+
 type Note = {
   id: number,
   title: string,
@@ -16,7 +18,7 @@ function App() {
   useEffect(()=>{
     const fetchNotes = async ()=>{
       try{
-        const response = await fetch("https://notesappapi-tbrz.onrender.com/notes")
+        const response = await fetch(`${API_URL}notes`)
         const allnotes: Note[] = await response.json()
         setNotes(allnotes)
       }
@@ -30,7 +32,7 @@ function App() {
   const handleAddNote = async (e: React.FormEvent)=>{
     e.preventDefault()
     try{
-      const response = await fetch("https://notesappapi-tbrz.onrender.com/api/notes/", {
+      const response = await fetch(`${API_URL}api/notes/`, {
         method: "POST",
         headers:{
           "Content-Type": "application/json",
@@ -61,7 +63,7 @@ function App() {
       return
     }
     try {
-      const response = await fetch(`https://notesappapi-tbrz.onrender.com/api/notes/${selectedNote.id}`, {
+      const response = await fetch(`${API_URL}api/notes/${selectedNote.id}`, {
         method: "PUT",
         headers:{
           "Content-Type": "application/json",
@@ -85,7 +87,7 @@ function App() {
   const deleteNote = async (e: React.MouseEvent, noteid: Number)=>{
     e.stopPropagation()
     try {
-      await fetch(`https://notesappapi-tbrz.onrender.com/api/notes/${noteid}`, {
+      await fetch(`${API_URL}api/notes/${noteid}`, {
         method: "DELETE",
       })
       const newList = notes.filter(instance=>(instance.id !== noteid))
